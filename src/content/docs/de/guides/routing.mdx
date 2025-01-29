@@ -1,13 +1,30 @@
 ---
 title: Routing
-description: Eine Einführung in Astros dateibasiertes Routing.
+description: Eine Einführung in das Routing mit Astro.
+i18nReady: true
 ---
 
-Astro verwendet **dateibasiertes Routing**, um URLs aus der Struktur an Dateien und Verzeichnissen zu erzeugen, die du in deinem Projekt unter `src/pages/` anlegst. Wenn eine Datei zum `src/pages`-Verzeichnis deines Projekts hinzugefügt wird, ist sie basierend auf ihrem Dateinamen automatisch als Route erreichbar.
+import { FileTree } from '@astrojs/starlight/components';
+import RecipeLinks from '~/components/RecipeLinks.astro';
+import Since from '~/components/Since.astro';
+import ReadMore from '~/components/ReadMore.astro';
+
+Astro verwendet **dateibasiertes Routing**, um deine Build-URLs basierend auf dem Dateilayout deines Projektverzeichnisses `src/pages/` zu generieren.
+
+## Navigieren zwischen Seiten
+
+Astro verwendet standardmäßige HTML [`<a>`-Elemente](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a), um zwischen Routen zu navigieren. Es gibt keine Framework-spezifische `<Link>`-Komponente.
+
+```astro title="src/pages/index.astro"
+<p>Lies mehr <a href="/about/">über</a> Astro!</p>
+
+<!-- Mit `Basis: "/docs"` konfiguriert -->
+<p>Erfahre mehr in unserem <a href="/docs/reference/">Referenz</a>-Bereich!</p> 
+```
 
 ## Statische Routen
 
-Astro-Komponenten (`.astro`) und Markdown-Dateien (`.md`) im Verzeichnis `src/pages` **werden automatisch zu Seiten auf deiner Website**. Die Route jeder Seite entspricht ihrem Pfad und Dateinamen im Verzeichnis `src/pages`.
+`.astro` [Seitenkomponenten](/de/basics/astro-pages/) sowie Markdown- und MDX-Dateien (md, mdx) im Verzeichnis `src/pages/` werden **automatisch zu Seiten auf deiner Website**. Die Route jeder Seite entspricht ihrem Pfad und Dateinamen im Verzeichnis `src/pages/`.
 
 ```diff
 # Beispiel: Statische Routen
@@ -21,14 +38,6 @@ src/pages/posts/1.md         -> meineseite.de/posts/1
 :::tip
 In einem Astro-Projekt muss keine separate "Routing-Konfiguration" gepflegt werden! Wenn du dem Verzeichnis `/src/pages` eine Datei hinzufügst, wird automatisch eine neue Route für dich erstellt. In statischen Builds kannst du das Dateiausgabeformat mit der Konfigurationsoption [`build.format`](/de/reference/configuration-reference/#buildformat) anpassen.
 :::
-
-## Navigation zwischen Seiten
-
-Astro verwendet standardmäßige [`<a>`-HTML-Elemente](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a), um zwischen einzelnen Routen zu navigieren. Es gibt keine Framework-spezifische `<Link>`-Komponente.
-
-```astro title="src/pages/index.astro"
-<p>Erfahre mehr <a href="/about/">über</a> Astro!</p>
-```
 
 ## Dynamische Routen
 
